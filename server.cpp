@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
             recv(client_sock, bufferA, 1024, 0);
 
             clientArg = bufferA;
-            cout << clientArg << endl;
+            //cout << clientArg << endl;
 
             if (clientArg.compare("!EOF!") == 0) {
               memset(bufferA, 0, 1024);
@@ -201,6 +201,28 @@ int main(int argc, char *argv[]) {
           nomeDoArquivo = "SERV" + nomeDoArquivo;
 
           cout << "NOME DO ARQUIVO: " << nomeDoArquivo << endl;
+
+          // Checa se o usuário tem o arquivo na lista dele
+          bool temArquivo = false;
+          for (auto arquivo : userMap[clientName]) {
+            if (arquivo.compare(nomeDoArquivo.substr(4)) == 0)
+              temArquivo = true;
+          }
+
+          if (!temArquivo) {
+            for (float i = 0; i < 500000; i++)
+              ; // delay para mandar o fim do arquivo
+
+            send(client_sock, endOF.c_str(), endOF.size() + 1, 0);
+
+            string done = "Você não possui este arquivo!";
+            for (float i = 0; i < 100000; i++)
+              ; // delay para
+                // mandar o fim do
+                // arquivo
+
+            write(client_sock, done.c_str(), done.size() + 1);
+          }
 
           ifstream myfile(nomeDoArquivo);
 

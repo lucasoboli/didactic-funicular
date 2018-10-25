@@ -138,7 +138,9 @@ int main(int argc, char *argv[]) {
 
       memset(buffer, 0, 1024);
 
+			int lines = 0;
       while (1) {
+				lines++;
         recv(sock, buffer, 1024, 0);
 
         arg = buffer;
@@ -154,6 +156,9 @@ int main(int argc, char *argv[]) {
         send(sock, "ACK\0", 4, 0); // Manda um ACK
         memset(buffer, 0, 1024);
       }
+
+			if(lines == 0)
+				remove(nomeDoArquivo.c_str());
 
       myfile.close();
       memset(buffer, 0, 1024);
