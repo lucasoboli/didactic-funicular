@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
   socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 
   if (socket_desc == -1)
-    printf(">> Could not create socket\n\n");
+    printf("> Could not create socket\n\n");
 
-  puts(">> Socket created\n");
+  puts("> Socket created");
 
   // Prepares the sockaddr_in structure
   server.sin_family = AF_INET;
@@ -53,11 +53,11 @@ int main(int argc, char *argv[])
   // Bind
   if (bind(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0)
   {
-    perror(">> Bind failed. Error");   // Print the error message
+    perror("> Bind failed. Error");   // Print the error message
     return 1;
   }
 
-  puts(">> Bind done\n");
+  puts("> Bind done");
 
   // Listen for connections
   listen(socket_desc, 3);
@@ -89,11 +89,11 @@ int main(int argc, char *argv[])
         return 1;
       }
 
-      puts(">>> Connection accepted\n");
+      puts(">>> Connection accepted");
 
       // Lê o nome do cliente do socket
       recv(client_sock, clientName, 20, 0);
-      cout << ">>>> Connected to the client: " << clientName << endl;
+      cout << ">>>> Connected to the client: " << clientName << endl << endl;
 
       while (1)
       {
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 
         // If not disconnected, treats the received command
         clientCommand = bufferC;
-        cout << "(" << clientName << ") COMANDO RECEBIDO: " << clientCommand
+        cout << "(" << clientName << ") COMMAND RECEIVED: " << clientCommand
              << endl;
 
         if (clientCommand.compare("echo") == 0)
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
 
           myfile.close();
 
-          string done = "file saved successfully!\n";
+          string done = "File saved successfully!";
 
           userMap[clientName].push_back(nomeDoArquivo.substr(4));
 
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 
           write(client_sock, endOF.c_str(), endOF.size()+1);
 
-          string done = "Completed list show!\n\n";
+          string done = "Completed list show!";
           for (float i=0;  i<100000; i++)
             ; // Delay to send the EOF
 
@@ -208,7 +208,7 @@ int main(int argc, char *argv[])
           nomeDoArquivo = bufferA;
           nomeDoArquivo = "SERV" + nomeDoArquivo;
 
-          cout << ">>> NOME DO ARQUIVO: " << nomeDoArquivo << endl;
+          cout << ">>>> File name: " << nomeDoArquivo << endl << endl;
 
           // Checa se o usuário tem o arquivo na lista dele
           bool temArquivo = false;
@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
 
             send(client_sock, endOF.c_str(), endOF.size()+1, 0);
 
-            string done = "You do not own this file!\n\n";
+            string done = "You do not own this file!";
 
             for (float i=0; i<100000; i++)
               ; // Delay to send the EOF

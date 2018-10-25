@@ -1,4 +1,4 @@
-## Usar
+## Use
 
 * Server
 ```
@@ -7,5 +7,5 @@
 
 * Client
 ```
-./makeClient.sh 127.0.0.1 8081 userpedro
+./makeClient.sh 127.0.0.1 8081 username
 ```

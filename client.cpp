@@ -28,7 +28,7 @@ int main (int argc, char *argv[])
 
   cout << "> Server Location: " << serverLocation << endl;
   cout << "> Server Port: " << serverPort << endl;
-  cout << "> Username: " << userName << endl;
+  cout << "> Username: " << userName << endl << endl;
 
   // Creates socket
   sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -36,7 +36,7 @@ int main (int argc, char *argv[])
   if (sock == -1)
     printf(">> Could not create socket\n\n");
 
-  puts(">> Socket created\n");
+  puts(">> Socket created");
 
   server.sin_addr.s_addr = inet_addr(serverLocation.c_str());
   server.sin_family = AF_INET;
@@ -49,14 +49,14 @@ int main (int argc, char *argv[])
     return 1;
   }
 
-  cout << ">> Connected to the server!\n" << endl << endl;
+  cout << ">> Connected to the server!" << endl << endl;
 
   send(sock, userName.c_str(), userName.size(), 0);
 
   // Keep communicating with the server
   while (1)
   {
-    cout << "> ";
+    cout << ">> ";
     cin.clear();
 
     // Read the command
@@ -70,7 +70,7 @@ int main (int argc, char *argv[])
     } else if (command.compare("echo") == 0) {
       cin >> arg;
 
-      send(sock, command.c_str(), command.size() + 1, 0);
+      send(sock, command.c_str(), command.size()+1, 0);
 
       for (float i=0; i<100000; i++)
         ; // Delay to send second part of message
@@ -145,7 +145,7 @@ int main (int argc, char *argv[])
       for (float i=0; i<100000; i++)
         ; // Delay
 
-      send(sock, arg.c_str(), arg.size() + 1, 0); // Send the file's name
+      send(sock, arg.c_str(), arg.size()+1, 0); // Send the file's name
 
       myfile.open(nomeDoArquivo);
 
@@ -190,7 +190,7 @@ int main (int argc, char *argv[])
       break;
     }
 
-    cout << endl << ">> SERVER: " << buffer << endl;
+    cout << ">>> SERVER: " << buffer << endl << endl;
 
     memset(buffer, 0, 1024);
   }
