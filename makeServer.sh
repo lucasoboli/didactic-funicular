@@ -1,0 +1,1 @@
+g++ server.cpp -o ./compilado/server -lpthread --std=c++17 && ./compilado/server $1

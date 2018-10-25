@@ -1,0 +1,1 @@
+g++ client.cpp -o ./compilado/client --std=c++17 && ./compilado/client $1 $2 $3
